@@ -1,0 +1,145 @@
+<!DOCTYPE html>
+<html lang="fa">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>KeyCraft | سازنده رمز عبور امن</title>
+  <meta name="description" content="KeyCraft یک ابزار ساده و قدرتمند برای ساخت رمز عبور امن روی موبایل و کامپیوتر است.">
+  <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+  <style>
+    body {
+      margin: 0;
+      font-family: 'Vazir', sans-serif;
+      background: #0b1220;
+      color: white;
+    }
+    .app {
+      max-width: 400px;
+      margin: 50px auto;
+      padding: 25px;
+      background: #111a2e;
+      border-radius: 15px;
+      box-shadow: 0 0 20px #00f2ff33;
+    }
+    h1 {
+      text-align: center;
+      color: #00f2ff;
+      text-shadow: 0 0 8px #00f2ff;
+    }
+    label {
+      display: block;
+      margin-top: 10px;
+      font-size: 14px;
+    }
+    input[type="number"], input[type="text"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 5px;
+      border-radius: 8px;
+      border: none;
+      font-size: 16px;
+      box-shadow: 0 0 8px #00f2ff33;
+      background: #1a2133;
+      color: white;
+    }
+    button {
+      width: 100%;
+      margin-top: 15px;
+      padding: 12px;
+      border: none;
+      border-radius: 10px;
+      font-size: 16px;
+      font-weight: bold;
+      background: #00f2ff;
+      color: #0b1220;
+      cursor: pointer;
+      box-shadow: 0 0 12px #00f2ff66;
+      transition: 0.2s;
+    }
+    button:hover {
+      box-shadow: 0 0 20px #00f2ff99;
+    }
+    #strength {
+      margin-top: 10px;
+      font-weight: bold;
+      text-align: center;
+    }
+    .options label {
+      font-size: 13px;
+    }
+    .options input {
+      margin-left: 5px;
+    }
+  </style>
+</head>
+<body>
+  <div class="app">
+    <h1>KeyCraft</h1>
+
+    <label>طول رمز:</label>
+    <input type="number" id="length" value="12" min="6" max="32">
+
+    <div class="options">
+      <label><input type="checkbox" id="upper" checked> حروف بزرگ</label>
+      <label><input type="checkbox" id="lower" checked> حروف کوچک</label>
+      <label><input type="checkbox" id="numbers" checked> عدد</label>
+      <label><input type="checkbox" id="symbols"> کاراکتر خاص</label>
+    </div>
+
+    <button onclick="generatePassword()">ساخت رمز</button>
+    <button onclick="copyPassword()">کپی رمز</button>
+    <input type="text" id="result" readonly>
+    <p id="strength">قدرت رمز: -</p>
+  </div>
+
+  <script>
+    function generatePassword() {
+      const length = document.getElementById("length").value;
+      let chars = "";
+      if (upper.checked) chars += "ABCDEFGHIJKLMNOPQRSTUVWXYZ";
+      if (lower.checked) chars += "abcdefghijklmnopqrstuvwxyz";
+      if (numbers.checked) chars += "0123456789";
+      if (symbols.checked) chars += "!@#$%^&*()_+";
+
+      if (chars === "") {
+        alert("حداقل یک گزینه را انتخاب کن");
+        return;
+      }
+
+      let password = "";
+      for (let i = 0; i < length; i++) {
+        password += chars[Math.floor(Math.random() * chars.length)];
+      }
+
+      document.getElementById("result").value = password;
+      checkStrength(password);
+    }
+
+    function copyPassword() {
+      const result = document.getElementById("result");
+      if (result.value === "") {
+        alert("رمزی برای کپی وجود ندارد");
+        return;
+      }
+      result.select();
+      document.execCommand("copy");
+      alert("رمز کپی شد ✅");
+    }
+
+    function checkStrength(password) {
+      let strengthText = "ضعیف";
+      let score = 0;
+      if (password.length >= 8) score++;
+      if (/[A-Z]/.test(password)) score++;
+      if (/[a-z]/.test(password)) score++;
+      if (/[0-9]/.test(password)) score++;
+      if (/[^A-Za-z0-9]/.test(password)) score++;
+
+      if (score >= 4) strengthText = "قوی 💪";
+      else if (score >= 3) strengthText = "متوسط 🙂";
+
+      document.getElementById("strength").innerText = "قدرت رمز: " + strengthText;
+    }
+  </script>
+</body>
+</html>
