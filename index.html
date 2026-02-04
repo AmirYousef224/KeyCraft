@@ -70,6 +70,11 @@
     .options input {
       margin-left: 5px;
     }
+    /* تبلیغ */
+    .ad-banner {
+      margin: 20px 0;
+      text-align: center;
+    }
   </style>
 </head>
 <body>
@@ -90,9 +95,24 @@
     <button onclick="copyPassword()">کپی رمز</button>
     <input type="text" id="result" readonly>
     <p id="strength">قدرت رمز: -</p>
+
+    <!-- تبلیغ بازدید فا -->
+    <div class="ad-banner">
+      <!-- https://bazdid-fa.ir -->
+      <a href="https://bazdid-fa.ir/account/referrer/5Oy0yq" target="_blank">
+        <img src="https://bazdid-fa.ir/upload/referringBanner/2oIy7cnl.gif" alt="تبلیغ بازدید فا" />
+      </a>
+      <!-- https://bazdid-fa.ir -->
+    </div>
+
   </div>
 
   <script>
+    const upper = document.getElementById("upper");
+    const lower = document.getElementById("lower");
+    const numbers = document.getElementById("numbers");
+    const symbols = document.getElementById("symbols");
+
     function generatePassword() {
       const length = document.getElementById("length").value;
       let chars = "";
