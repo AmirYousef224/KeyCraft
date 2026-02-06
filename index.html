@@ -5,7 +5,13 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>KeyCraft | سازنده رمز عبور امن</title>
   <meta name="description" content="KeyCraft یک ابزار ساده و قدرتمند برای ساخت رمز عبور امن روی موبایل و کامپیوتر است.">
+
+  <!-- favicon (لوگو سایت) -->
+  <link rel="icon" type="image/png" href="favicon.png">
+
+  <!-- فونت -->
   <link href="https://fonts.googleapis.com/css2?family=Vazir&display=swap" rel="stylesheet">
+
   <style>
     body {
       margin: 0;
@@ -25,6 +31,7 @@
       text-align: center;
       color: #00f2ff;
       text-shadow: 0 0 8px #00f2ff;
+      margin-bottom: 20px;
     }
     label {
       display: block;
@@ -38,9 +45,9 @@
       border-radius: 8px;
       border: none;
       font-size: 16px;
-      box-shadow: 0 0 8px #00f2ff33;
       background: #1a2133;
       color: white;
+      box-shadow: 0 0 8px #00f2ff33;
     }
     button {
       width: 100%;
@@ -67,16 +74,13 @@
     .options label {
       font-size: 13px;
     }
-    .options input {
-      margin-left: 5px;
-    }
-    /* تبلیغ */
     .ad-banner {
-      margin: 20px 0;
+      margin-top: 25px;
       text-align: center;
     }
   </style>
 </head>
+
 <body>
   <div class="app">
     <h1>KeyCraft</h1>
@@ -93,18 +97,20 @@
 
     <button onclick="generatePassword()">ساخت رمز</button>
     <button onclick="copyPassword()">کپی رمز</button>
+
     <input type="text" id="result" readonly>
     <p id="strength">قدرت رمز: -</p>
 
     <!-- تبلیغ بازدید فا -->
     <div class="ad-banner">
-      <!-- https://bazdid-fa.ir -->
       <a href="https://bazdid-fa.ir/account/referrer/5Oy0yq" target="_blank">
-        <img src="https://bazdid-fa.ir/upload/referringBanner/2oIy7cnl.gif" alt="تبلیغ بازدید فا" />
+        <img src="https://bazdid-fa.ir/upload/referringBanner/2oIy7cnl.gif" alt="تبلیغ بازدید فا">
       </a>
-      <!-- https://bazdid-fa.ir -->
     </div>
 
+    <p style="text-align:center; opacity:0.6; margin-top:15px;">
+      Made With ❤
+    </p>
   </div>
 
   <script>
@@ -121,8 +127,8 @@
       if (numbers.checked) chars += "0123456789";
       if (symbols.checked) chars += "!@#$%^&*()_+";
 
-      if (chars === "") {
-        alert("حداقل یک گزینه را انتخاب کن");
+      if (!chars) {
+        alert("حداقل یک گزینه رو انتخاب کن");
         return;
       }
 
@@ -137,8 +143,8 @@
 
     function copyPassword() {
       const result = document.getElementById("result");
-      if (result.value === "") {
-        alert("رمزی برای کپی وجود ندارد");
+      if (!result.value) {
+        alert("رمزی وجود ندارد");
         return;
       }
       result.select();
@@ -147,7 +153,6 @@
     }
 
     function checkStrength(password) {
-      let strengthText = "ضعیف";
       let score = 0;
       if (password.length >= 8) score++;
       if (/[A-Z]/.test(password)) score++;
@@ -155,10 +160,11 @@
       if (/[0-9]/.test(password)) score++;
       if (/[^A-Za-z0-9]/.test(password)) score++;
 
-      if (score >= 4) strengthText = "قوی 💪";
-      else if (score >= 3) strengthText = "متوسط 🙂";
+      let text = "ضعیف";
+      if (score >= 4) text = "قوی 💪";
+      else if (score >= 3) text = "متوسط 🙂";
 
-      document.getElementById("strength").innerText = "قدرت رمز: " + strengthText;
+      document.getElementById("strength").innerText = "قدرت رمز: " + text;
     }
   </script>
 </body>
